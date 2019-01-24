@@ -19,7 +19,14 @@ db.on('error', (err) => {
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+// allroutes
 app.use('/products', require('./routes/productApi'));
+
+
+app.use((req, res, next) => {
+  res.send("<h1>Welcome</h1>");
+});
 
 const port = process.env.PORT || 3200;
 app.listen(port || 3200, () => {
