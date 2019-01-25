@@ -2,30 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // product schema
-const productSchema = new Schema({
-  brand_id: {type: Number},
-  category_id: {type: Number},
-  vertical_id: {type: Number},
-  product_name: {type: String},
-  selling_rate: {type: Number},
-  mrp: {type: Number},
+const productSchema = mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
+  brand_id: Number,
+  category_id: Number,
+  vertical_id: Number,
+  product_name: String,
+  selling_rate: Number,
+  mrp: Number,
   images: [String],
   state: Boolean,
-  feature_category_list: [
-      {
-        feature_category_name: {type: String},
-         feature_list: [
-           {
-             feature_name: {type: String},
-             feature_value: {type: String},
-             feature_unit: {type: String},
-             feature_prefix: {type: String},
-             feature_suffix: {type: String}
-           }
-      ]
-    }
-  ]
+  features:[{
+    product_feature: {type: mongoose.Schema.Types.ObjectId, ref: 'Product_feature'},
+    value: String
+  }]
 });
 
-const Product = mongoose.model('em_products', productSchema);
-module.exports = Product;
+module.exports = mongoose.model('Product', productSchema);
