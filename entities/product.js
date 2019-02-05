@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // product schema
 const productSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  id: mongoose.Schema.Types.ObjectId,
   brandId: Number,
   categoryId: Number,
   verticalId: Number,
@@ -15,7 +15,8 @@ const productSchema = mongoose.Schema({
   features:[{
     productFeature: {type: mongoose.Schema.Types.ObjectId, ref: 'ProductFeature'},
     value: String
-  }]
+  }],
+  timestamp: Date
 });
 
 module.exports = mongoose.model('Product', productSchema);

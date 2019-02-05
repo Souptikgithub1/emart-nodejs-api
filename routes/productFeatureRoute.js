@@ -5,7 +5,7 @@ const ProductFeature = require('../entities/productFeature');
 
 router.post('/', (req, res) => {
     let productFeature = new ProductFeature(req.body);
-    productFeature._id = mongoose.Types.ObjectId();
+    productFeature.id = mongoose.Types.ObjectId();
     productFeature.save().then(result => {
         res.status(200).send(result);
     }).catch(err => {
