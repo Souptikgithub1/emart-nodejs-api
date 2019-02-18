@@ -13,4 +13,21 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/addAll', (req, res) => {
+    const reqBody = req.body;
+    let productFeatures = [];
+    for(const elem of reqBody){
+        let productFeature = new ProductFeature(elem);
+        productFeature.id = mongoose.Types.ObjectId();
+        productFeatures.push(productFeature);
+    }
+    
+    console.log(productFeatures);
+    ProductFeature.insertMany(productFeatures).then(result => {
+        res.status(200).send(result);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+});
+
 module.exports = router;
