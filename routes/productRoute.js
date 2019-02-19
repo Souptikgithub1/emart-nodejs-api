@@ -50,11 +50,17 @@ router.post('/search', (req, res) => {
   .populate('features.productFeature')
   .sort({'sellingRate': 1}).exec()
   .then(totalProducts => {
-    let totalCount = totalProducts.length;
+    
     let minPriceRange = !!totalProducts[0] ? totalProducts[0]['sellingRate'] : 0;
     let maxPriceRange = !!totalProducts[totalProducts.length-1] ? totalProducts[totalProducts.length-1]['sellingRate'] : 10000000;
   
+    //price filter
+    totalProducts = totalProducts.filter(product => product.sellingRate >= minPrice && product.sellingRate <= maxPrice);
     
+
+    //setting total product count after filtering
+    let totalCount = totalProducts.length;
+
     totalProducts.sort((a,b) => {
       if(sort === 'price_asc') return a.sellingRate - b.sellingRate;
       if(sort === 'price_desc') return b.sellingRate - a.sellingRate;
